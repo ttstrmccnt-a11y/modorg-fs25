@@ -1,0 +1,7 @@
+{
+  "APP_DESCRIPTION": "modorg - Swiss-Army-Knife for FS25",
+  "STARTUP_MSG": "Starting modorg-fs25...",
+  "GUI_STARTING": "Starting GUI...",
+  "VERSION_DESC": "Show version information and exit",
+  "HELP_DESC": "Show this help message and exit"
+}
