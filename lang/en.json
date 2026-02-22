@@ -3,5 +3,6 @@
   "STARTUP_MSG": "Starting modorg-fs25...",
   "GUI_STARTING": "Starting GUI...",
   "VERSION_DESC": "Show version information and exit",
-  "HELP_DESC": "Show this help message and exit"
+  "HELP_DESC": "Show this help message and exit",
+  "ADMIN_REQUIRED_MSG": "This action requires administrator privileges. Please restart the program as an administrator."
 }

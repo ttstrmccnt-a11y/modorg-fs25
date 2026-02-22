@@ -1,9 +1,9 @@
 import argparse
 import sys
-import json
 import os
 from core.config_manager import ConfigManager
 from core.i18n import initialize_i18n, _
+from core.plugin_engine import PluginLoader
 
 VERSION = "0.1.0"
 
@@ -38,25 +38,33 @@ def main():
         help=_("HELP_DESC")
     )
 
-    # Parse arguments (handles --version and --help automatically)
-    args = parser.parse_args()
+    # Subparsers for modules
+    subparsers = parser.add_subparsers(dest="command")
 
-    # Load modules.json (Skeleton)
-    modules_path = "modules.json"
-    if os.path.exists(modules_path):
-        try:
-            with open(modules_path, 'r', encoding='utf-8') as f:
-                modules_data = json.load(f)
-                # Skeleton: Register modules here in the future
-        except (json.JSONDecodeError, IOError) as e:
-            # Fallback or error handling
-            pass
+    # Plugin Loading
+    loader = PluginLoader()
+    plugins = loader.load_plugins()
+
+    # Register arguments for each active plugin
+    for plugin in plugins:
+        plugin.register_arguments(subparsers)
+
+    # Parse arguments
+    args = parser.parse_args()
 
     # Startup Message
     print(_("STARTUP_MSG"))
 
-    # Starting GUI (Placeholder)
-    print(_("GUI_STARTING"))
+    # Execute plugins
+    plugin_executed = False
+    for plugin in plugins:
+        if plugin.execute(args):
+            plugin_executed = True
+            break
+
+    # Starting GUI (Placeholder) if no plugin was executed
+    if not plugin_executed:
+        print(_("GUI_STARTING"))
 
 if __name__ == "__main__":
     main()
