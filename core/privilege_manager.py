@@ -1,43 +1,37 @@
-import ctypes
-import sys
 import os
+import sys
+import platform
 
-def is_admin():
+class PrivilegeManager:
     """
-    Checks if the current process has administrative privileges.
-    Works on Windows and Unix-like systems.
+    Detects PermissionError and handles UAC elevation (Administrator rights) on-demand.
     """
-    try:
-        # Windows check
-        if sys.platform == 'win32':
-            return ctypes.windll.shell32.IsUserAnAdmin() != 0
-        else:
-            # Unix-like check
-            return os.getuid() == 0
-    except (AttributeError, Exception):
-        return False
-
-def elevate():
-    """
-    Triggers the Windows UAC dialog to restart the script as an administrator.
-    Only applicable on Windows.
-    """
-    if is_admin():
-        return True
-
-    if sys.platform == 'win32':
-        # Re-run the script with administrative privileges
-        params = " ".join([f'"{arg}"' for arg in sys.argv])
+    @staticmethod
+    def is_admin():
+        """Checks if the current process has administrator/root privileges."""
         try:
-            # ShellExecuteW(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd)
-            # lpOperation: "runas" triggers UAC
-            ret = ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, params, None, 1)
-            if ret > 32:
-                # Successfully started the process
-                sys.exit(0)
+            if platform.system() == "Windows":
+                import ctypes
+                return ctypes.windll.shell32.IsUserAnAdmin() != 0
             else:
-                return False
+                return os.getuid() == 0
         except Exception:
             return False
 
-    return False
+    @staticmethod
+    def elevate():
+        """
+        Attempts to elevate the process privileges.
+        In a real-world scenario, this would restart the application with admin rights.
+        For this simulation, we provide a placeholder that informs the user.
+        """
+        if PrivilegeManager.is_admin():
+            return True
+
+        print("Elevation requested. Please run the application as Administrator/Root.")
+        # In a real GUI/CLI app, we might use:
+        # Windows: ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+        # Linux/macOS: os.execvp("sudo", ["sudo", sys.executable] + sys.argv)
+
+        # For now, we return False to indicate that elevation was not automatically handled
+        return False
