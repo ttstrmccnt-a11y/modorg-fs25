@@ -3,5 +3,6 @@
   "STARTUP_MSG": "modorg-fs25 wird gestartet...",
   "GUI_STARTING": "GUI wird gestartet...",
   "VERSION_DESC": "Versionsinformationen anzeigen und beenden",
-  "HELP_DESC": "Diese Hilfenachricht anzeigen und beenden"
+  "HELP_DESC": "Diese Hilfenachricht anzeigen und beenden",
+  "ADMIN_REQUIRED_MSG": "Diese Aktion erfordert Administratorrechte. Bitte starten Sie das Programm als Administrator neu."
 }
