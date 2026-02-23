@@ -1,11 +1,12 @@
 import argparse
 import sys
+import json
 import os
 import importlib
 import inspect
 from core.config_manager import ConfigManager
 from core.i18n import initialize_i18n, _
-from core.plugin_engine import PluginLoader
+from core.base_plugin import BasePlugin
 
 VERSION = "0.1.0"
 
@@ -80,32 +81,17 @@ def main():
     # Load and register plugins
     plugins = load_plugins(config_manager, parser)
 
-    # Subparsers for modules
-    subparsers = parser.add_subparsers(dest="command")
-
-    # Plugin Loading
-    loader = PluginLoader()
-    plugins = loader.load_plugins()
-
-    # Register arguments for each active plugin
-    for plugin in plugins:
-        plugin.register_arguments(subparsers)
-
     # Parse arguments
     args = parser.parse_args()
 
-    # Startup Message
-    print(_("STARTUP_MSG"))
-
-    # Execute plugins
-    plugin_executed = False
-    for plugin in plugins:
-        if plugin.execute(args):
-            plugin_executed = True
-            break
-
-    # Starting GUI (Placeholder) if no plugin was executed
-    if not plugin_executed:
+    if args.command:
+        # Execute the chosen plugin
+        if args.command in plugins:
+            plugins[args.command].execute(args)
+    else:
+        # Startup Message
+        print(_("STARTUP_MSG"))
+        # Starting GUI (Placeholder)
         print(_("GUI_STARTING"))
 
 if __name__ == "__main__":

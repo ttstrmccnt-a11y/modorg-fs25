@@ -4,5 +4,11 @@
   "GUI_STARTING": "Starting GUI...",
   "VERSION_DESC": "Show version information and exit",
   "HELP_DESC": "Show this help message and exit",
-  "ADMIN_REQUIRED_MSG": "This action requires administrator privileges. Please restart the program as an administrator."
+  "SUBCOMMAND_HELP": "Available modules",
+  "HELP_SYSTEM_TWEAK": "Configure system and game settings",
+  "HELP_CONSOLE": "Enable or disable the developer console (true/false)",
+  "CONSOLE_UPDATED": "Developer console has been set to {value}",
+  "CONSOLE_UPDATE_FAILED": "Failed to update developer console setting",
+  "GAME_XML_NOT_FOUND": "game.xml could not be located",
+  "XPATH_NOT_FOUND": "Setting could not be applied: XPath '{xpath}' not found in game.xml"
 }
