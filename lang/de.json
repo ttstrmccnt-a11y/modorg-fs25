@@ -4,11 +4,5 @@
   "GUI_STARTING": "GUI wird gestartet...",
   "VERSION_DESC": "Versionsinformationen anzeigen und beenden",
   "HELP_DESC": "Diese Hilfenachricht anzeigen und beenden",
-  "SUBCOMMAND_HELP": "Verfügbare Module",
-  "HELP_SYSTEM_TWEAK": "System- und Spieleinstellungen konfigurieren",
-  "HELP_CONSOLE": "Entwicklerkonsole aktivieren oder deaktivieren (true/false)",
-  "CONSOLE_UPDATED": "Entwicklerkonsole wurde auf {value} gesetzt",
-  "CONSOLE_UPDATE_FAILED": "Fehler beim Aktualisieren der Entwicklerkonsole-Einstellung",
-  "GAME_XML_NOT_FOUND": "game.xml konnte nicht gefunden werden",
-  "XPATH_NOT_FOUND": "Einstellung konnte nicht angewendet werden: XPath '{xpath}' wurde in game.xml nicht gefunden"
+  "ADMIN_REQUIRED_MSG": "Diese Aktion erfordert Administratorrechte. Bitte starten Sie das Programm als Administrator neu."
 }
