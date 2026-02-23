@@ -9,5 +9,6 @@
   "HELP_CONSOLE": "Entwicklerkonsole aktivieren oder deaktivieren (true/false)",
   "CONSOLE_UPDATED": "Entwicklerkonsole wurde auf {value} gesetzt",
   "CONSOLE_UPDATE_FAILED": "Fehler beim Aktualisieren der Entwicklerkonsole-Einstellung",
-  "GAME_XML_NOT_FOUND": "game.xml konnte nicht gefunden werden"
+  "GAME_XML_NOT_FOUND": "game.xml konnte nicht gefunden werden",
+  "XPATH_NOT_FOUND": "Einstellung konnte nicht angewendet werden: XPath '{xpath}' wurde in game.xml nicht gefunden"
 }

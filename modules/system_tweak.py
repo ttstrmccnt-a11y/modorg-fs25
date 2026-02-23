@@ -6,7 +6,7 @@ from core.i18n import _
 
 class SystemTweak(BasePlugin):
     """
-    System-Tweak Module: Configures game.xml settings.
+    System-Tweak Module: Configures game.xml settings for Farming Simulator 25.
     """
     def register_arguments(self, parser):
         """Adds CLI arguments for the system_tweak module."""
@@ -21,33 +21,39 @@ class SystemTweak(BasePlugin):
         if args.console is not None:
             game_xml_path = self._find_game_xml()
             if game_xml_path and os.path.exists(game_xml_path):
-                # The task specifies the XPath /language/development/controls
-                # We use that as requested.
+                # The XPath for FS25 is /game/development/controls.
+                # Older versions sometimes used different paths, but FS25
+                # strictly follows this structure in game.xml.
+                xpath = "/game/development/controls"
+
                 success = XMLService.smart_patch(
                     game_xml_path,
-                    "/language/development/controls",
+                    xpath,
                     args.console
                 )
+
                 if success:
                     print(_("CONSOLE_UPDATED").format(value=args.console))
                 else:
-                    # If it failed, maybe the xpath was wrong for this file
-                    # but we followed instructions.
-                    print(_("CONSOLE_UPDATE_FAILED"))
+                    # XMLService returns False if XPath is not found
+                    print(_("XPATH_NOT_FOUND").format(xpath=xpath))
             else:
                 print(_("GAME_XML_NOT_FOUND"))
 
     def _find_game_xml(self):
-        """Attempts to locate game.xml in standard locations."""
-        # Common locations for Farming Simulator 25 game.xml
+        """
+        Attempts to locate game.xml specifically in the FarmingSimulator2025 directory
+         to avoid confusion with older game versions.
+        """
         paths = []
         if platform.system() == "Windows":
+            # Standard path on Windows
             paths.append(os.path.expandvars(r"%USERPROFILE%\Documents\My Games\FarmingSimulator2025\game.xml"))
         else:
-            # On Linux/macOS (e.g. via Proton/Steam or just for testing)
+            # Standard path on Linux (Proton) or macOS
             paths.append(os.path.expanduser("~/Documents/My Games/FarmingSimulator2025/game.xml"))
 
-        # Also check current directory for testing purposes
+        # Fallback for testing or non-standard installations
         paths.append("game.xml")
 
         for p in paths:
